@@ -9,9 +9,7 @@ The research objectives are:
 
 # Data Visualization
 
-<!DOCTYPE html>
-<html>
-  <head>
+<head>
     <!-- EXTERNAL LIBS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://www.google.com/jsapi"></script>
@@ -69,4 +67,3 @@ The research objectives are:
   <body>
     <div id="chart" style="width: 100%;"></div>
   </body>
-</html>

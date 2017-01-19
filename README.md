@@ -7,15 +7,66 @@ The research objectives are:
 1. Bla bla
 2. **IoT**
 
-<h2>Example of code</h2>
+# Data Visualization
 
-<pre>
-    <div class="container">
-        <div class="block two first">
-            <h2>Your title</h2>
-            <div class="wrap">
-                //Your content
-            </div>
-        </div>
-    </div>
-</pre>
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- EXTERNAL LIBS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+
+    <!-- EXAMPLE SCRIPT -->
+    <script>
+
+      // onload callback
+      function drawChart() {
+
+        var public_key = 'ZGWznM2VnRi1b50op992';
+
+        // JSONP request
+        var jsonData = $.ajax({
+          url: 'https://data.sparkfun.com/output/' + public_key + '.json',
+          data: {page: 1},
+          dataType: 'jsonp',
+        }).done(function (results) {
+
+          var data = new google.visualization.DataTable();
+
+         data.addColumn('datetime', 'Time');
+         // data.addColumn('number', 'Temp');
+          data.addColumn('number', 'level');
+
+          $.each(results, function (i, row) {
+            data.addRow([
+              (new Date(row.timestamp)),
+              //parseFloat(row.tempf),
+              parseFloat(row.level)
+            ]);
+          });
+
+          var chart = new google.visualization.LineChart($('#chart').get(0));
+
+          chart.draw(data, {
+            title: 'Wimp Weather Station'
+          });
+
+        });
+
+      }
+
+      // load chart lib
+      google.load('visualization', '1', {
+        packages: ['corechart']
+      });
+
+      // call drawChart once google charts is loaded
+      google.setOnLoadCallback(drawChart);
+
+    </script>
+
+  </head>
+  <body>
+    <div id="chart" style="width: 100%;"></div>
+  </body>
+</html>
